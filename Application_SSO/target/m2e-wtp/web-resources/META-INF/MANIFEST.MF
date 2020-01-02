@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: Application_SSO Maven Webapp
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Owner
+Implementation-Vendor-Id: com.org.mus
+Build-Jdk: 1.8.0_211
+Implementation-URL: http://maven.apache.org
+Created-By: Maven Integration for Eclipse
+

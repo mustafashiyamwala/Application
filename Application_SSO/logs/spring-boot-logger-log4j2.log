@@ -1,0 +1,178 @@
+2020-01-02 11:13:40,361 INFO o.s.b.StartupInfoLogger [main] Starting Application on Owner-PC with PID 4148 (C:\Users\Owner\Documents\Project\Application_SSO\target\classes started by Owner in C:\Users\Owner\Documents\Project\Application_SSO)
+2020-01-02 11:13:40,361 INFO o.s.b.StartupInfoLogger [main] Starting Application on Owner-PC with PID 4148 (C:\Users\Owner\Documents\Project\Application_SSO\target\classes started by Owner in C:\Users\Owner\Documents\Project\Application_SSO)
+2020-01-02 11:13:40,373 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.0.4.RELEASE, Spring v5.0.8.RELEASE
+2020-01-02 11:13:40,373 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.0.4.RELEASE, Spring v5.0.8.RELEASE
+2020-01-02 11:13:40,376 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-01-02 11:13:40,376 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-01-02 11:13:40,607 INFO o.s.c.s.AbstractApplicationContext [main] Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@f381794: startup date [Thu Jan 02 11:13:40 IST 2020]; root of context hierarchy
+2020-01-02 11:13:42,298 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-02 11:13:42,439 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [main] Spring Data Couchbase - Could not safely identify store assignment for repository candidate interface com.org.repository.EmployeeRepository.
+2020-01-02 11:13:42,444 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [main] Spring Data Couchbase - Could not safely identify store assignment for repository candidate interface com.org.repository.PrivilegeRepository.
+2020-01-02 11:13:42,448 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [main] Spring Data Couchbase - Could not safely identify store assignment for repository candidate interface com.org.repository.RegistrationRepository.
+2020-01-02 11:13:42,453 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [main] Spring Data Couchbase - Could not safely identify store assignment for repository candidate interface com.org.repository.RoleRepository.
+2020-01-02 11:13:42,472 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-02 11:13:42,959 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-01-02 11:13:44,239 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.kafka.annotation.KafkaBootstrapConfiguration' of type [org.springframework.kafka.annotation.KafkaBootstrapConfiguration$$EnhancerBySpringCGLIB$$d503367b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-02 11:13:44,493 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$15124f8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-02 11:13:44,580 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration$$EnhancerBySpringCGLIB$$99feed32] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-02 11:13:44,597 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-02 11:13:44,603 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@58a4a74d' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-02 11:13:44,615 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration$$EnhancerBySpringCGLIB$$bed38fe4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-02 11:13:44,650 INFO o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [main] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-01-02 11:13:46,961 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8085 (https)
+2020-01-02 11:13:47,000 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["https-jsse-nio-8085"]
+2020-01-02 11:13:47,066 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2020-01-02 11:13:47,067 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet Engine: Apache Tomcat/8.5.32
+2020-01-02 11:13:47,116 INFO o.a.j.l.DirectJDKLog [localhost-startStop-1] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_151\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_211/bin/server;C:/Program Files/Java/jre1.8.0_211/bin;C:/Program Files/Java/jre1.8.0_211/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows;C:\Windows\system32;C:\Windows\System32\Wbem;M:\Library\Protobuf\protobuf-2.5.0;C:\ProgramData\Oracle\Java\javapath;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_151\bin;R:\BigData\Hive\apache-hive-2.1.0-bin\bin;R:\BigData\Spark\spark-2.2.0-bin-hadoop2.7\bin;C:\Program Files (x86)\scala\bin;C:\Program Files\MySQL\MySQL Server 5.7\bin;R:\BigData\Maven\apache-maven-3.6.0\bin;R:\BigData\Hadoop\hadoop-2.7.3\bin;R:\BigData\Hadoop\hadoop-2.7.3\sbin;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\bin;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;%KAFKA_HOME%\bin\windows;R:\BigData\usr\Local\Zookeeper\zookeeper-3.4.9\bin;C:\Users\Owner\AppData\Local\Microsoft\WindowsApps;;C:\Program Files\Docker Toolbox;C:\Users\Owner\Desktop;;.]
+2020-01-02 11:13:47,460 INFO o.a.j.l.DirectJDKLog [localhost-startStop-1] Initializing Spring embedded WebApplicationContext
+2020-01-02 11:13:47,460 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [localhost-startStop-1] Root WebApplicationContext: initialization completed in 6859 ms
+2020-01-02 11:13:48,714 INFO c.z.h.HikariDataSource [localhost-startStop-1] HikariPool-1 - Starting...
+2020-01-02 11:13:49,511 INFO c.z.h.HikariDataSource [localhost-startStop-1] HikariPool-1 - Start completed.
+2020-01-02 11:13:49,672 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [localhost-startStop-1] Building JPA container EntityManagerFactory for persistence unit 'default'
+2020-01-02 11:13:49,736 INFO o.h.j.i.u.LogHelper [localhost-startStop-1] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-01-02 11:13:50,123 INFO o.h.Version [localhost-startStop-1] HHH000412: Hibernate Core {5.2.17.Final}
+2020-01-02 11:13:50,141 INFO o.h.c.Environment [localhost-startStop-1] HHH000206: hibernate.properties not found
+2020-01-02 11:13:50,290 INFO o.h.a.c.r.j.JavaReflectionManager [localhost-startStop-1] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2020-01-02 11:13:50,605 INFO o.h.d.Dialect [localhost-startStop-1] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-01-02 11:13:52,857 INFO o.h.t.s.i.SchemaCreatorImpl [localhost-startStop-1] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@6f752fe1'
+2020-01-02 11:13:52,865 INFO o.s.o.j.AbstractEntityManagerFactoryBean [localhost-startStop-1] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-01-02 11:13:53,757 INFO c.o.c.SecurityConfiguration [localhost-startStop-1] Handles Login Request
+2020-01-02 11:13:53,757 INFO c.o.c.SecurityConfiguration [localhost-startStop-1] Handles Login Request
+2020-01-02 11:13:53,960 INFO o.s.b.w.s.AbstractFilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-01-02 11:13:53,961 INFO o.s.b.w.s.AbstractFilterRegistrationBean [localhost-startStop-1] Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-01-02 11:13:53,962 INFO o.s.b.w.s.AbstractFilterRegistrationBean [localhost-startStop-1] Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-01-02 11:13:53,962 INFO o.s.b.w.s.AbstractFilterRegistrationBean [localhost-startStop-1] Mapping filter: 'requestContextFilter' to: [/*]
+2020-01-02 11:13:53,963 INFO o.s.b.w.s.AbstractFilterRegistrationBean [localhost-startStop-1] Mapping filter: 'springSecurityFilterChain' to: [/*]
+2020-01-02 11:13:53,964 INFO o.s.b.w.s.AbstractFilterRegistrationBean [localhost-startStop-1] Mapping filter: 'authenticationFilters' to: [/*]
+2020-01-02 11:13:53,964 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Servlet dispatcherServlet mapped to [/]
+2020-01-02 11:13:53,967 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Servlet webServlet mapped to [/h2-console/*]
+2020-01-02 11:13:54,013 DEBUG o.s.w.f.GenericFilterBean [localhost-startStop-1] Initializing filter 'authenticationFilters'
+2020-01-02 11:13:54,013 DEBUG o.s.w.f.GenericFilterBean [localhost-startStop-1] Initializing filter 'authenticationFilters'
+2020-01-02 11:13:54,013 DEBUG o.s.w.f.GenericFilterBean [localhost-startStop-1] Filter 'authenticationFilters' configured successfully
+2020-01-02 11:13:54,013 DEBUG o.s.w.f.GenericFilterBean [localhost-startStop-1] Filter 'authenticationFilters' configured successfully
+2020-01-02 11:13:54,717 INFO c.c.c.c.l.Slf4JLogger [main] CouchbaseEnvironment: {sslEnabled=false, sslKeystoreFile='null', sslTruststoreFile='null', sslKeystorePassword=false, sslTruststorePassword=false, sslKeystore=null, sslTruststore=null, bootstrapHttpEnabled=true, bootstrapCarrierEnabled=true, bootstrapHttpDirectPort=8091, bootstrapHttpSslPort=18091, bootstrapCarrierDirectPort=11210, bootstrapCarrierSslPort=11207, ioPoolSize=4, computationPoolSize=4, responseBufferSize=16384, requestBufferSize=16384, kvServiceEndpoints=1, viewServiceEndpoints=12, queryServiceEndpoints=12, searchServiceEndpoints=12, configPollInterval=2500, configPollFloorInterval=50, ioPool=NioEventLoopGroup, kvIoPool=null, viewIoPool=null, searchIoPool=null, queryIoPool=null, coreScheduler=CoreScheduler, memcachedHashingStrategy=DefaultMemcachedHashingStrategy, eventBus=DefaultEventBus, packageNameAndVersion=couchbase-java-client/2.5.9 (git: 2.5.9, core: 1.5.9), retryStrategy=BestEffort, maxRequestLifetime=75000, retryDelay=ExponentialDelay{growBy 1.0 MICROSECONDS, powers of 2; lower=100, upper=100000}, reconnectDelay=ExponentialDelay{growBy 1.0 MILLISECONDS, powers of 2; lower=32, upper=4096}, observeIntervalDelay=ExponentialDelay{growBy 1.0 MICROSECONDS, powers of 2; lower=10, upper=100000}, keepAliveInterval=30000, continuousKeepAliveEnabled=true, keepAliveErrorThreshold=4, keepAliveTimeout=2500, autoreleaseAfter=2000, bufferPoolingEnabled=true, tcpNodelayEnabled=true, mutationTokensEnabled=false, socketConnectTimeout=1000, callbacksOnIoPool=false, disconnectTimeout=25000, requestBufferWaitStrategy=com.couchbase.client.core.env.DefaultCoreEnvironment$2@22a6e998, certAuthEnabled=false, coreSendHook=null, forceSaslPlain=false, queryTimeout=75000, viewTimeout=75000, searchTimeout=75000, analyticsTimeout=75000, kvTimeout=2500, connectTimeout=5000, dnsSrvEnabled=false}
+2020-01-02 11:13:55,627 INFO c.c.c.c.l.Slf4JLogger [cb-io-1-1] Connected to Node 127.0.0.1/127.0.0.1
+2020-01-02 11:13:55,689 INFO c.c.c.c.l.Slf4JLogger [cb-io-1-1] Disconnected from Node 127.0.0.1/127.0.0.1
+2020-01-02 11:13:56,876 INFO c.c.c.c.l.Slf4JLogger [cb-io-1-2] Connected to Node 127.0.0.1/127.0.0.1
+2020-01-02 11:13:57,064 INFO c.c.c.c.l.Slf4JLogger [cb-computations-4] Opened bucket Registration
+2020-01-02 11:13:58,002 INFO o.s.s.w.DefaultSecurityFilterChain [main] Creating filter chain: Ant [pattern='/templates/*'], []
+2020-01-02 11:13:58,286 INFO o.s.s.w.DefaultSecurityFilterChain [main] Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5b88b8e, org.springframework.security.web.context.SecurityContextPersistenceFilter@67022ea, org.springframework.security.web.header.HeaderWriterFilter@d3f4505, org.springframework.security.web.authentication.logout.LogoutFilter@428bdd72, com.org.security.AuthenticationFilters@21ebc8c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@383caf89, org.springframework.security.web.session.ConcurrentSessionFilter@6807a356, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@58fbd02e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@798256c5, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@64c781a9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58253c57, org.springframework.security.web.session.SessionManagementFilter@7fd987ef, org.springframework.security.web.access.ExceptionTranslationFilter@3b4a1a75, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4a92c6a9]
+2020-01-02 11:13:58,517 INFO o.s.w.s.h.AbstractUrlHandlerMapping [main] Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-01-02 11:13:59,204 INFO o.s.w.s.m.m.a.RequestMappingHandlerAdapter [main] Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@f381794: startup date [Thu Jan 02 11:13:40 IST 2020]; root of context hierarchy
+2020-01-02 11:13:59,330 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-01-02 11:13:59,426 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/employee/employeePage],methods=[GET]}" onto public java.lang.String com.org.controller.EmployeeController.employeePage()
+2020-01-02 11:13:59,429 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/employee/getAllEmployees],methods=[GET]}" onto public java.lang.String com.org.controller.EmployeeController.getAllEmployees(org.springframework.ui.Model)
+2020-01-02 11:13:59,430 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/employee/saveEmployee],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.org.controller.EmployeeController.saveEmployee(com.org.model.Employee)
+2020-01-02 11:13:59,434 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/request/validate/session],methods=[GET]}" onto public java.lang.String com.org.controller.LoginController.session(java.lang.String)
+2020-01-02 11:13:59,438 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/request/validateUser/access],methods=[POST]}" onto public void com.org.controller.LoginController.authenticateUser(com.org.model.User,javax.servlet.http.HttpServletRequest,java.lang.Exception)
+2020-01-02 11:13:59,439 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/request/user/home],methods=[GET]}" onto public java.lang.String com.org.controller.LoginController.landinPage(java.lang.String)
+2020-01-02 11:13:59,457 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/request/authenticate],methods=[GET]}" onto public java.lang.String com.org.controller.LoginController.login(java.lang.String)
+2020-01-02 11:13:59,457 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/request/info/userDetails],methods=[GET]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.org.controller.LoginController.userDetails(javax.servlet.http.HttpServletRequest)
+2020-01-02 11:13:59,459 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/registration/loaduserdetails],methods=[GET]}" onto public java.lang.String com.org.controller.RegistrationController.loadRegistration()
+2020-01-02 11:13:59,460 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/registration/saveuserdetails],methods=[POST]}" onto public org.springframework.http.ResponseEntity<java.lang.String> com.org.controller.RegistrationController.saveRegistrationDetails(com.org.model.Registration)
+2020-01-02 11:13:59,467 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-01-02 11:13:59,468 INFO o.s.w.s.h.AbstractHandlerMethodMapping$MappingRegistry [main] Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-01-02 11:13:59,644 INFO o.s.w.s.h.AbstractUrlHandlerMapping [main] Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-01-02 11:13:59,645 INFO o.s.w.s.h.AbstractUrlHandlerMapping [main] Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-01-02 11:14:01,238 INFO o.s.j.e.MBeanExporter [main] Registering beans for JMX exposure on startup
+2020-01-02 11:14:01,243 INFO o.s.j.e.MBeanExporter [main] Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-01-02 11:14:01,257 INFO o.s.j.e.MBeanExporter [main] Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-01-02 11:14:01,271 INFO o.s.c.s.DefaultLifecycleProcessor$LifecycleGroup [main] Starting beans in phase 2147483547
+2020-01-02 11:14:01,397 INFO o.h.h.i.QueryTranslatorFactoryInitiator [main] HHH000397: Using ASTQueryTranslatorFactory
+2020-01-02 11:14:02,109 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["https-jsse-nio-8085"]
+2020-01-02 11:14:02,651 INFO o.a.j.l.DirectJDKLog [main] Using a shared selector for servlet write/read
+2020-01-02 11:14:02,678 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8085 (https) with context path ''
+2020-01-02 11:14:02,683 INFO o.s.b.StartupInfoLogger [main] Started Application in 23.315 seconds (JVM running for 24.413)
+2020-01-02 11:14:02,683 INFO o.s.b.StartupInfoLogger [main] Started Application in 23.315 seconds (JVM running for 24.413)
+2020-01-02 11:14:50,306 INFO o.a.j.l.DirectJDKLog [https-jsse-nio-8085-exec-6] Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-01-02 11:14:50,307 INFO o.s.w.s.FrameworkServlet [https-jsse-nio-8085-exec-6] FrameworkServlet 'dispatcherServlet': initialization started
+2020-01-02 11:14:50,355 INFO o.s.w.s.FrameworkServlet [https-jsse-nio-8085-exec-6] FrameworkServlet 'dispatcherServlet': initialization completed in 48 ms
+2020-01-02 11:14:50,613 WARN c.o.c.LoginController [https-jsse-nio-8085-exec-7] Invalid Session
+2020-01-02 11:14:50,613 WARN c.o.c.LoginController [https-jsse-nio-8085-exec-7] Invalid Session
+2020-01-02 11:14:54,153 INFO c.o.c.LoginController [https-jsse-nio-8085-exec-9] Request for Login Page
+2020-01-02 11:14:54,153 INFO c.o.c.LoginController [https-jsse-nio-8085-exec-9] Request for Login Page
+2020-01-02 11:14:59,878 DEBUG o.s.s.w.a.AbstractAuthenticationProcessingFilter [https-jsse-nio-8085-exec-1] Request is to process authentication
+2020-01-02 11:14:59,878 DEBUG o.s.s.w.a.AbstractAuthenticationProcessingFilter [https-jsse-nio-8085-exec-1] Request is to process authentication
+2020-01-02 11:15:00,020 INFO c.o.s.LoginService [https-jsse-nio-8085-exec-1] User Information is Fetched
+2020-01-02 11:15:00,020 INFO c.o.s.LoginService [https-jsse-nio-8085-exec-1] User Information is Fetched
+2020-01-02 11:15:00,043 INFO c.o.s.UserDetailsAuthenticationProvider [https-jsse-nio-8085-exec-1] Fetching Specific End User Credentials for Authentication and Authorization
+2020-01-02 11:15:00,043 INFO c.o.s.UserDetailsAuthenticationProvider [https-jsse-nio-8085-exec-1] Fetching Specific End User Credentials for Authentication and Authorization
+2020-01-02 11:15:00,044 INFO c.o.s.UserDetailsAuthenticationProvider [https-jsse-nio-8085-exec-1] Validating the End Users Credentials
+2020-01-02 11:15:00,044 INFO c.o.s.UserDetailsAuthenticationProvider [https-jsse-nio-8085-exec-1] Validating the End Users Credentials
+2020-01-02 11:15:00,045 INFO c.o.s.UserDetailsAuthenticationProvider [https-jsse-nio-8085-exec-1] Authenticate IP Address Allow to Access
+2020-01-02 11:15:00,045 INFO c.o.s.UserDetailsAuthenticationProvider [https-jsse-nio-8085-exec-1] Authenticate IP Address Allow to Access
+2020-01-02 11:15:00,202 DEBUG o.s.s.w.a.AbstractAuthenticationProcessingFilter [https-jsse-nio-8085-exec-1] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@907a8a6f: Principal: org.springframework.security.core.userdetails.User@364492: Username: test; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: READ_PRIVILEGE,WRITE_PRIVILEGE; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@0: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: AB1BE9056D33E27852E26316648396DB; Granted Authorities: READ_PRIVILEGE, WRITE_PRIVILEGE
+2020-01-02 11:15:00,202 DEBUG o.s.s.w.a.AbstractAuthenticationProcessingFilter [https-jsse-nio-8085-exec-1] Authentication success. Updating SecurityContextHolder to contain: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@907a8a6f: Principal: org.springframework.security.core.userdetails.User@364492: Username: test; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: READ_PRIVILEGE,WRITE_PRIVILEGE; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@0: RemoteIpAddress: 0:0:0:0:0:0:0:1; SessionId: AB1BE9056D33E27852E26316648396DB; Granted Authorities: READ_PRIVILEGE, WRITE_PRIVILEGE
+2020-01-02 11:15:00,205 INFO c.o.s.LoginSuccessHandler [https-jsse-nio-8085-exec-1] Authorization set for corresponding User
+2020-01-02 11:15:00,205 INFO c.o.s.LoginSuccessHandler [https-jsse-nio-8085-exec-1] Authorization set for corresponding User
+2020-01-02 11:15:00,207 INFO c.o.s.LoginSuccessHandler [https-jsse-nio-8085-exec-1] Redirected Successfully
+2020-01-02 11:15:00,207 INFO c.o.s.LoginSuccessHandler [https-jsse-nio-8085-exec-1] Redirected Successfully
+2020-01-02 11:15:00,238 INFO c.o.c.LoginController [https-jsse-nio-8085-exec-8] Login as Admin
+2020-01-02 11:15:00,238 INFO c.o.c.LoginController [https-jsse-nio-8085-exec-8] Login as Admin
+2020-01-02 11:15:05,113 INFO c.o.c.EmployeeController [https-jsse-nio-8085-exec-9] Adding new Employee Page
+2020-01-02 11:15:05,113 INFO c.o.c.EmployeeController [https-jsse-nio-8085-exec-9] Adding new Employee Page
+2020-01-02 11:15:19,392 INFO o.a.k.c.c.AbstractConfig [https-jsse-nio-8085-exec-5] ProducerConfig values: 
+	acks = 1
+	batch.size = 16384
+	bootstrap.servers = [localhost:9092]
+	buffer.memory = 33554432
+	client.id = 
+	compression.type = none
+	connections.max.idle.ms = 540000
+	enable.idempotence = false
+	interceptor.classes = null
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 0
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.StringSerializer
+
+2020-01-02 11:15:19,956 INFO o.a.k.c.u.AppInfoParser$AppInfo [https-jsse-nio-8085-exec-5] Kafka version : 1.0.2
+2020-01-02 11:15:19,956 INFO o.a.k.c.u.AppInfoParser$AppInfo [https-jsse-nio-8085-exec-5] Kafka commitId : 2a121f7b1d402825
+2020-01-02 11:15:20,590 INFO c.o.k.MessageProducer$1 [kafka-producer-network-thread | producer-1] Sent message=[2] with offset=[1]
+2020-01-02 11:15:20,590 INFO c.o.k.MessageProducer$1 [kafka-producer-network-thread | producer-1] Sent message=[2] with offset=[1]
+2020-01-02 11:15:20,644 INFO c.o.s.EmployeeService [https-jsse-nio-8085-exec-5] Successfully Register Employee in SQL
+2020-01-02 11:15:20,644 INFO c.o.s.EmployeeService [https-jsse-nio-8085-exec-5] Successfully Register Employee in SQL
+2020-01-02 11:15:21,481 INFO c.o.c.EmployeeCouchbaseServiceImpl [https-jsse-nio-8085-exec-5] Successfull Register Employee in CB
+2020-01-02 11:15:21,481 INFO c.o.c.EmployeeCouchbaseServiceImpl [https-jsse-nio-8085-exec-5] Successfull Register Employee in CB
