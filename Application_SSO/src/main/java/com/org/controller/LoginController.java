@@ -103,7 +103,7 @@ public class LoginController {
 		}
 
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add("Custom-add", "Mustafa");
+		httpHeaders.add("Custom-add", "Data-Records");
 
 		return new ResponseEntity<String>(response, httpHeaders, HttpStatus.OK);
 	}

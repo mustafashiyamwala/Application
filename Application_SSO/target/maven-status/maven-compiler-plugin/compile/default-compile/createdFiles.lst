@@ -1,4 +1,5 @@
 com\org\repository\RegistrationRepository.class
+com\org\couchbase\EmployeeCouchbaseServiceImpl.class
 com\org\config\Internationalization.class
 com\org\model\Employee.class
 com\org\service\RegistrationService.class
@@ -10,6 +11,7 @@ com\org\controller\LoginController.class
 com\org\entity\EmployeeEntity.class
 com\org\validation\EmailValidation.class
 com\org\security\LoginSuccessHandler.class
+com\org\couchbase\EmployeeCouchbaseService.class
 com\org\dto\RegistrationDto.class
 com\org\validation\ValidEmail.class
 com\org\validation\FieldMatchValidation.class
@@ -22,11 +24,15 @@ com\org\kafka\MessageProducer.class
 com\org\validation\ValidFieldMatch.class
 com\org\dto\UserDto.class
 com\org\kafka\MessageConsumer.class
+com\org\document\EmployeeDocument.class
 com\org\security\AuthenticationDetails.class
 com\org\couchbase\RegistrationCouchbaseService.class
 com\org\controller\EmployeeController.class
 com\org\main\Application.class
 com\org\security\AuthenticationFilters.class
+com\org\serializable\GenericDeserializer.class
+com\org\serializable\GenericSerializer.class
+com\org\dto\GenericObjectDto.class
 com\org\repository\PrivilegeRepository.class
 com\org\couchbase\RegistrationCouchbaseServiceImpl.class
 com\org\exeception\RegistrationException.class

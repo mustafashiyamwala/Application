@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import com.org.dto.EmployeeDto;
 import com.org.entity.EmployeeEntity;
 import com.org.exeception.RegistrationException;
-import com.org.kafka.MessageConsumer;
 import com.org.repository.EmployeeRepository;
 import lombok.extern.log4j.Log4j2;
 
@@ -21,9 +20,6 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository repository;
-	
-	@Autowired
-	private MessageConsumer messageConsumer;
 
 	public EmployeeEntity saveEmployee(@Valid EmployeeDto employeeDto) {
 
