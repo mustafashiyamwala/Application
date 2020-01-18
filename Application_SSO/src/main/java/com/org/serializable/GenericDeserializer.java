@@ -3,10 +3,12 @@ package com.org.serializable;
 import java.io.IOException;
 import java.util.Map;
 import org.apache.kafka.common.serialization.Deserializer;
+import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
+@Component
 public class GenericDeserializer<T> implements Deserializer<T> {
 
 	private Class<?> t;

@@ -97,7 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.antMatchers("/registration/**")
 				.access("isAuthenticated() and hasAuthority('READ_PRIVILEGE') and hasAuthority('WRITE_PRIVILEGE')")
-				
+
 				.antMatchers("/request/authenticate**", "/request/validate/session**").permitAll()
 
 				.anyRequest().authenticated()

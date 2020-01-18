@@ -2,7 +2,7 @@ package com.org.reflection;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
+//import java.lang.reflect.Constructor;
 //import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,13 +12,16 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.org.exeception.RegistrationException;
+import com.org.util.ApplicationContextProvider;
 //import com.org.model.Employee;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
+@Component
 public class AbstractReflection<T> {
 
 	private static Map<Object, String> map = new HashMap<Object, String>();
@@ -41,23 +44,23 @@ public class AbstractReflection<T> {
 		}
 	}
 
-	@Bean
 	@SuppressWarnings("unchecked")
-	public void callingMethod(T object, String key) throws RegistrationException {
+	public void callingMethod(T valueObject, String key, ApplicationContextProvider applicationContextProvider)
+			throws RegistrationException {
 
 		try {
-			String methodName = actionEvent(object);
+			String methodName = actionEvent(valueObject);
 			String className = map.get(key);
 
 			Class<?> classObject = Class.forName(className);
-			Constructor<?> constructor = classObject.getDeclaredConstructor();
-			Method method = classObject.getDeclaredMethod(methodName, object.getClass());
+			Method method = classObject.getDeclaredMethod(methodName, valueObject.getClass());
 
-			T obj = (T) constructor.newInstance();
-			method.invoke(obj, object);
+			T bean = (T) applicationContextProvider.getApplicationContext().getBean(classObject);
 
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException
-				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			method.invoke(bean, valueObject);
+
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			log.error("Unable to Reflection Class : " + e.getMessage());
 			throw new RegistrationException("Unable to run Reflection Class : " + e.getMessage());
@@ -66,7 +69,7 @@ public class AbstractReflection<T> {
 	}
 
 	public String actionEvent(T object) throws RegistrationException {
-		String methodName = "saveEmployee";
+		String methodName = "save";
 
 		try {
 			JSONParser parser = new JSONParser();
@@ -98,8 +101,8 @@ public class AbstractReflection<T> {
 		 * constructor2 = empClass.getConstructor(String.class, String.class,
 		 * String.class); Parameter parameter[] = constructor2.getParameters();
 		 * 
-		 * Employee employee2 = (Employee) constructor2.newInstance("abc",
-		 * "xyz", "abc@gmail,com");
+		 * Employee employee2 = (Employee) constructor2.newInstance("abc", "xyz",
+		 * "abc@gmail,com");
 		 * 
 		 * Method method[] = empClass.getMethods(); Method method1 =
 		 * empClass.getMethod("setFirstName"); Method method2 =

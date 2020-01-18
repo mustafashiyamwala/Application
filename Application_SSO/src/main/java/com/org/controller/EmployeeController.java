@@ -5,14 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.org.couchbase.EmployeeCouchbaseService;
 import com.org.dto.EmployeeDto;
 import com.org.model.Employee;
 import com.org.serializable.GenericSerializer;
-import com.org.service.EmployeeService;
 import com.org.kafka.MessageProducer;
 import lombok.extern.log4j.Log4j2;
 
@@ -22,14 +19,9 @@ import lombok.extern.log4j.Log4j2;
 public class EmployeeController {
 
 	@Autowired
-	private EmployeeService employeeService;
-
-	@Autowired
-	private EmployeeCouchbaseService employeeCouchbaseService;
-
-	@Autowired
 	private MessageProducer messageProducer;
 
+	@Autowired
 	private GenericSerializer genericSerializer;
 
 	@Value(value = "${kafka.topicName}")
@@ -49,14 +41,13 @@ public class EmployeeController {
 		employeeDto.setLastName(employee.getLastName());
 		employeeDto.setEmail(employee.getEmail());
 
-		genericSerializer = new GenericSerializer();
 		byte[] serializeData = genericSerializer.serialize(this.topicName, employeeDto);
 
 		messageProducer.sendMessage(this.topicName, "Employee", serializeData);
 
-		employeeService.saveEmployee(employeeDto);
+		// employeeService.saveEmployee(employeeDto);
 
-		employeeCouchbaseService.create(employeeDto);
+		// employeeCouchbaseService.create(employeeDto);
 
 		return new ResponseEntity<String>("Success", HttpStatus.OK);
 	}

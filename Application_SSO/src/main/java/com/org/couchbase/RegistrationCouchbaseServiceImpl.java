@@ -12,7 +12,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
-@Qualifier("RegistrationCouchbaseServiceImpl")
+//@Qualifier("RegistrationCouchbaseServiceImpl")
 public class RegistrationCouchbaseServiceImpl implements RegistrationCouchbaseService {
 
 	@Autowired

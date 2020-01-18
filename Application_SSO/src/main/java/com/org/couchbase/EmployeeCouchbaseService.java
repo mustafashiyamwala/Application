@@ -4,18 +4,19 @@ import java.util.List;
 import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
 import org.springframework.data.couchbase.core.query.ViewIndexed;
 import com.org.dto.EmployeeDto;
+import com.org.exeception.RegistrationException;
 
 @N1qlPrimaryIndexed
 @ViewIndexed(designDoc = "EmployeeDocument", viewName = "EmployeeAll")
 public interface EmployeeCouchbaseService {
 
-	EmployeeDto findOne(String id);
+	EmployeeDto getById(String id);
 
-	List<EmployeeDto> findAll();
+	List<EmployeeDto> getAll();
 
 	List<EmployeeDto> findByFirstName(String firstName);
 
-	void create(EmployeeDto employeeDto);
+	void save(EmployeeDto employeeDto) throws RegistrationException;
 
 	void update(EmployeeDto employeeDto);
 

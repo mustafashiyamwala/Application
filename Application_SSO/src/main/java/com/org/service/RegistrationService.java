@@ -1,17 +1,21 @@
 package com.org.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import com.org.dto.RegistrationDto;
 import com.org.entity.RegistrationEntity;
+import com.org.entity.RoleEntity;
 import com.org.repository.RegistrationRepository;
+import com.org.repository.RoleRepository;
 import com.org.validation.ValidAuthorize;
 import lombok.extern.log4j.Log4j2;
 
@@ -21,25 +25,35 @@ import lombok.extern.log4j.Log4j2;
 public class RegistrationService {
 
 	@Autowired
+	private RoleRepository roleRepository;
+
+	@Autowired
 	private RegistrationRepository registrationRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@ValidAuthorize
 	public Long saveRegistrationDetails(@Valid RegistrationDto registrationDto) {
+
+		RoleEntity roleEntity = roleRepository.findByName("ROLE_ADMIN");
 
 		RegistrationEntity registrationEntity = new RegistrationEntity();
 		registrationEntity.setFirstName(registrationDto.getFirstName());
 		registrationEntity.setLastName(registrationDto.getLastName());
 		registrationEntity.setEmail(registrationDto.getEmail());
-		registrationEntity.setPassword(registrationDto.getPassword());
+		registrationEntity.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+		registrationEntity.setRoles(Arrays.asList(roleEntity));
+		registrationEntity.setEnabled(true);
 
 		RegistrationEntity entity = registrationRepository.save(registrationEntity);
-		
-		if(entity.getId() == null) {
+
+		if (entity.getId() == null) {
 			log.warn("Unable to Register User in SQL");
 		}
-		
+
 		log.info("Successfully Register User in SQL");
-		
+
 		return entity.getId();
 	}
 
