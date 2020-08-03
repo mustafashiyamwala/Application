@@ -1,0 +1,1 @@
+INSERT INTO cycling.cyclist_alt_stats (id, lastname, birthday, nationality, weight,height ) VALUES (now(), 'Shiyamwala', '2015-02-22', 'indian', '50', '50');

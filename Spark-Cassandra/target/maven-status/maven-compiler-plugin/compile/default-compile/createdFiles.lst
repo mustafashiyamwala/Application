@@ -1,0 +1,6 @@
+com\org\cassandra\MutliRead.class
+com\org\cassandra\Consistency.class
+com\org\cassandra\CassandraReadWrite.class
+com\org\cassandra\MultiThreading.class
+com\org\cassandra\MultiWrite.class
+com\org\cassandra\RunnableTask.class
