@@ -1,5 +1,8 @@
 package com.org.cassandra;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -8,46 +11,56 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
 import org.apache.log4j.Logger;
+import com.org.exception.SparkCassandraException;
 
 public class MultiThreading {
 
 	private static Logger logger = Logger.getLogger(MultiThreading.class);
 
-	public void multipleCall(int noOfCores, String query, Integer noOfRecords, String url, String keySpace,
-			String tableName, String event) {
+	public void multipleCall(String[] urls, Integer port, String userName, String password, String keySpace,
+			String tableName, Integer maxParallelExexcution, List<Path> directoryStream, String event)
+			throws SparkCassandraException {
 
-		int count = 0;
 		Object result = null;
-		Future<?> future = null;
+		List<Future<?>> resultFuture = new ArrayList<Future<?>>();
+		List<RunnableTask> runnableTask = new ArrayList<RunnableTask>();
 		ExecutorService executorService = null;
 
+		if (event.equalsIgnoreCase("write")) {
+			for (Path filePath : directoryStream) {
+				runnableTask
+						.add(new RunnableTask(urls, port, userName, password, keySpace, tableName, filePath, event));
+			}
+
+		} else if (event.equalsIgnoreCase("read")) {
+			for (int i = 0; i < maxParallelExexcution; i++) {
+				runnableTask.add(new RunnableTask(urls, port, userName, password, keySpace, tableName, event));
+			}
+		}
+
 		try {
-			logger.info("No Of Thread: " + (noOfCores - 1));
+			executorService = Executors.newFixedThreadPool(maxParallelExexcution);
 
-			executorService = Executors.newFixedThreadPool(noOfCores - 1);
-			RunnableTask runnableTask = new RunnableTask(query, url, keySpace, tableName, event);
+			try {
+				logger.info("Execution Started");
 
-			noOfRecords = event.equalsIgnoreCase("read") ? noOfCores - 1 : noOfRecords;
+				for (RunnableTask task : runnableTask) {
+					resultFuture.add(executorService.submit(task));
+				}
 
-			for (int i = 0; i < noOfRecords; i++) {
-				future = executorService.submit(runnableTask);
-
-				try {
+				for (Future<?> future : resultFuture) {
+					
 					if (!future.isCancelled() && future.isDone()) {
 						result = future.get(200, TimeUnit.MILLISECONDS);
 					}
-
-				} catch (InterruptedException | ExecutionException | TimeoutException e) {
-					// TODO: handle exception
-					logger.error("Exception: " + e.getMessage());
 				}
+				logger.info("Execution Completed");
 
-				count++;
-				if (count % 1000 == 0) {
-					logger.info("No of Records Inserted: " + count);
-				}
+			} catch (InterruptedException | ExecutionException | TimeoutException e) {
+				// TODO: handle exception
+				logger.error("Exception: " + e.getMessage());
+				throw new SparkCassandraException("Exception: " + e.getMessage());
 			}
 
 		} finally {
@@ -62,43 +75,37 @@ public class MultiThreading {
 				// TODO: handle exception
 				logger.error("Exception: " + e.getMessage());
 				executorService.shutdown();
+				throw new SparkCassandraException("Exception: " + e.getMessage());
 			}
 		}
 	}
 
-	public void scheduleMultipleCall(String url, String keySpace, String tableName) {
-
-		ScheduledExecutorService scheduledExecutorService = null;
-
-		try {
-			scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-			RunnableTask runnableTask = new RunnableTask("", url, keySpace, tableName, "count");
-
-			ScheduledFuture<?> scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(runnableTask, 100, 500,
-					TimeUnit.MILLISECONDS);
-
-			try {
-				if (!scheduledFuture.isCancelled() && scheduledFuture.isDone()) {
-					Object result = scheduledFuture.get(500, TimeUnit.MILLISECONDS);
-				}
-
-			} catch (InterruptedException | ExecutionException | TimeoutException e) {
-				// TODO: handle exception
-				logger.error("Exception: " + e.getMessage());
-			}
-
-		} finally {
-
-			try {
-				if (scheduledExecutorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
-					scheduledExecutorService.shutdownNow();
-				}
-
-			} catch (Exception e) {
-				// TODO: handle exception
-				logger.error("Exception: " + e.getMessage());
-				scheduledExecutorService.shutdown();
-			}
-		}
-	}
+	/*
+	 * public void scheduleMultipleCall(String url, String keySpace, String
+	 * tableName) {
+	 * 
+	 * ScheduledExecutorService scheduledExecutorService = null;
+	 * 
+	 * try { scheduledExecutorService =
+	 * Executors.newSingleThreadScheduledExecutor(); RunnableTask runnableTask = new
+	 * RunnableTask(url, keySpace, tableName, "count");
+	 * 
+	 * ScheduledFuture<?> scheduledFuture =
+	 * scheduledExecutorService.scheduleAtFixedRate(runnableTask, 100, 500,
+	 * TimeUnit.MILLISECONDS);
+	 * 
+	 * try { if (!scheduledFuture.isCancelled() && scheduledFuture.isDone()) {
+	 * Object result = scheduledFuture.get(500, TimeUnit.MILLISECONDS); }
+	 * 
+	 * } catch (InterruptedException | ExecutionException | TimeoutException e) { //
+	 * TODO: handle exception logger.error("Exception: " + e.getMessage()); }
+	 * 
+	 * } finally {
+	 * 
+	 * try { if (scheduledExecutorService.awaitTermination(800,
+	 * TimeUnit.MILLISECONDS)) { scheduledExecutorService.shutdownNow(); }
+	 * 
+	 * } catch (Exception e) { // TODO: handle exception logger.error("Exception: "
+	 * + e.getMessage()); scheduledExecutorService.shutdown(); } } }
+	 */
 }
