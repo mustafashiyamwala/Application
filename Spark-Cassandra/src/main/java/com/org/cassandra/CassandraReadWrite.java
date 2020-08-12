@@ -12,8 +12,10 @@ import org.osgi.framework.ServiceReference;
 import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.ConsistencyLevel;
 import com.datastax.driver.core.PlainTextAuthProvider;
 import com.datastax.driver.core.PreparedStatement;
+import com.datastax.driver.core.QueryOptions;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
@@ -41,6 +43,7 @@ public class CassandraReadWrite {
 	private Session session;
 	private Cluster cluster;
 	private Path filePath;
+	private QueryOptions queryOptions;
 	private static Logger logger = Logger.getLogger(CassandraReadWrite.class);
 
 	public CassandraReadWrite(String[] urls, Integer port, String userName, String password, String keySpace,
@@ -71,7 +74,7 @@ public class CassandraReadWrite {
 					.withAuthProvider(new PlainTextAuthProvider(this.userName, this.password));
 			this.cluster = builder1.build();
 			this.session = cluster.connect(this.keySpace);
-
+			this.queryOptions = new QueryOptions().setConsistencyLevel(ConsistencyLevel.QUORUM);
 			logger.info("Cassandra Connection is Done");
 
 		} catch (Exception e) {
