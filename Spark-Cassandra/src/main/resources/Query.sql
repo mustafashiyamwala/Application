@@ -1,6 +1,8 @@
 CREATE KEYSPACE excelsior
     WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 3};
 
+USE excelsior;
+    
 CREATE TYPE BBVars (
                   mt_aiflo double,
                   mt_aitmp double,

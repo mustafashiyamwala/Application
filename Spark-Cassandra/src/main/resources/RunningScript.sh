@@ -1,0 +1,1 @@
+java -cp /opt/app/testing/Cassandra/Spark-Cassandra.jar com.org.cassandra.MultiWrite /opt/app/testing/Cassandra/input.properties 

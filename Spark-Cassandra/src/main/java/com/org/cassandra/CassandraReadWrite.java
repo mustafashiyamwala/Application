@@ -1,9 +1,14 @@
 package com.org.cassandra;
 
+import java.lang.management.ManagementFactory;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.log4j.Logger;
 import org.osgi.framework.BundleContext;
@@ -12,11 +17,13 @@ import org.osgi.framework.ServiceReference;
 import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.CodecRegistry;
 import com.datastax.driver.core.ConsistencyLevel;
 import com.datastax.driver.core.PlainTextAuthProvider;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.QueryOptions;
 import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.ResultSetFuture;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
@@ -44,6 +51,7 @@ public class CassandraReadWrite {
 	private Cluster cluster;
 	private Path filePath;
 	private QueryOptions queryOptions;
+	private CodecRegistry codecRegistry;
 	private static Logger logger = Logger.getLogger(CassandraReadWrite.class);
 
 	public CassandraReadWrite(String[] urls, Integer port, String userName, String password, String keySpace,
@@ -54,6 +62,8 @@ public class CassandraReadWrite {
 		this.password = password;
 		this.keySpace = keySpace;
 		this.tableName = tableName;
+		this.queryOptions = new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE);
+		this.codecRegistry = CodecRegistry.DEFAULT_INSTANCE;
 	}
 
 	public CassandraReadWrite(String[] urls, Integer port, String userName, String password, String keySpace,
@@ -65,16 +75,20 @@ public class CassandraReadWrite {
 		this.keySpace = keySpace;
 		this.tableName = tableName;
 		this.filePath = filePath;
+		this.queryOptions = new QueryOptions().setConsistencyLevel(ConsistencyLevel.ONE);
+		this.codecRegistry = CodecRegistry.DEFAULT_INSTANCE;
 	}
 
 	public void connect() throws SparkCassandraException {
 		try {
+
 			Cluster.Builder builder = Cluster.builder();
 			Cluster.Builder builder1 = builder.addContactPoints(this.urls).withPort(this.port)
-					.withAuthProvider(new PlainTextAuthProvider(this.userName, this.password));
+					.withAuthProvider(new PlainTextAuthProvider(this.userName, this.password))
+					.withQueryOptions(this.queryOptions).withCodecRegistry(this.codecRegistry);
 			this.cluster = builder1.build();
 			this.session = cluster.connect(this.keySpace);
-			this.queryOptions = new QueryOptions().setConsistencyLevel(ConsistencyLevel.QUORUM);
+
 			logger.info("Cassandra Connection is Done");
 
 		} catch (Exception e) {
@@ -88,15 +102,17 @@ public class CassandraReadWrite {
 
 		try {
 			int count = 0;
-			BatchStatement batchStatement = new BatchStatement();
-			/*
-			 * String insertQuery = "INSERT INTO " + this.keySpace + "." + this.tableName +
-			 * " (bbluuid, beanclassname, datehourbucket, fullyprocessed, startblock, ts,
-			 * vars) VALUES(?, ?, ?, ?, ?, ?, ?)";
-			 */
+			// BatchStatement batchStatement = new BatchStatement();
+			// String insertQuery = "INSERT INTO " + this.keySpace + "." + this.tableName
+			// + " (bbluuid, beanclassname, datehourbucket, fullyprocessed, startblock, ts,
+			// vars) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
 			connect();
+			// PreparedStatement preparedStatement = this.session.prepare(insertQuery);
+			Mapper<BBData> mapper = new MappingManager(this.session).mapper(BBData.class);
+
 			Iterable<CSVRecord> iterable = new CSVUtility().readCSVFile(filePath.toString());
+			long nanosec = ManagementFactory.getThreadMXBean().getThreadCpuTime(Thread.currentThread().getId());
 
 			for (CSVRecord csvRecord : iterable) {
 
@@ -109,7 +125,6 @@ public class CassandraReadWrite {
 				 * Double.parseDouble(csvRecord.get(1))) .setDouble("mt_aiden",
 				 * Double.parseDouble(csvRecord.get(2)));
 				 * 
-				 * PreparedStatement preparedStatement = this.session.prepare(insertQuery);
 				 * batchStatement.add(preparedStatement.bind().setUUID("bbluuid",
 				 * UUIDs.timeBased()) .setString("beanclassname", BBData.class.getSimpleName())
 				 * .setString("datehourbucket",
@@ -119,26 +134,29 @@ public class CassandraReadWrite {
 				 * udtValue));
 				 */
 
-				Mapper<BBData> mapper = new MappingManager(this.session).mapper(BBData.class);
-
 				BBVars bbVars = new BBVars(Double.parseDouble(csvRecord.get(0)), Double.parseDouble(csvRecord.get(1)),
 						Double.parseDouble(csvRecord.get(2)));
-				BBData bbData = new BBData(UUIDs.timeBased(), BBData.class.getSimpleName(),
-						LocalDateTime.now().toString(), false, false, String.valueOf(Instant.now().toEpochMilli()),
-						bbVars);
+				BBData bbData = new BBData(UUIDs.random(), BBData.class.getSimpleName(), LocalDateTime.now().toString(),
+						false, false, String.valueOf(Instant.now().toEpochMilli()), bbVars);
 
 				Statement statement = mapper.saveQuery(bbData);
-				batchStatement.add(statement);
+				this.session.execute(statement);
 				count++;
-
-				if (count % 1000 == 0) {
-					this.session.executeAsync(batchStatement);
-					batchStatement = new BatchStatement();
-				}
+				
+				/*
+				 * batchStatement.add(statement); 
+				 * 
+				 * if (count % 100 == 0) { this.session.execute(batchStatement); batchStatement
+				 * = new BatchStatement(); logger.info("Records Inserted: =============> " +
+				 * count); }
+				 */
 			}
-			this.session.execute(batchStatement);
-
+			// this.session.execute(batchStatement);
+			logger.info("No of Records Inserted: ======> " + count);
 			close();
+
+			long nanosec1 = ManagementFactory.getThreadMXBean().getThreadCpuTime(Thread.currentThread().getId());
+			logger.info("Time:  " + (nanosec1 - nanosec) / 1000000 + " Thread: " + Thread.currentThread().getId());
 
 		} catch (SparkCassandraException e) {
 			// TODO Auto-generated catch block
@@ -148,6 +166,8 @@ public class CassandraReadWrite {
 
 	public void read() {
 		try {
+			long nanosec = ManagementFactory.getThreadMXBean().getThreadCpuTime(Thread.currentThread().getId());
+
 			connect();
 			String query = "SELECT * FROM " + this.keySpace + "." + this.tableName;
 
@@ -158,8 +178,11 @@ public class CassandraReadWrite {
 			// ResultSet resultSet = this.session.execute(query);
 			// List<Row> rows = resultSet.all();
 
-			logger.info("No Of Records Retrieve: " + list.size());
+			logger.info("No Of Records Retrieve:  ======> " + list.size());
 			close();
+
+			long nanosec1 = ManagementFactory.getThreadMXBean().getThreadCpuTime(Thread.currentThread().getId());
+			logger.info("Time:  " + (nanosec1 - nanosec) / 1000000 + " Thread: " + Thread.currentThread().getId());
 
 		} catch (SparkCassandraException e) {
 			// TODO Auto-generated catch block
@@ -172,7 +195,7 @@ public class CassandraReadWrite {
 			connect();
 			ResultSet resultSet = session.execute("SELECT COUNT(*) FROM " + this.keySpace + "." + this.tableName);
 			Row row = resultSet.one();
-			logger.info("Count ===============> " + row);
+			logger.info("Count ==========> " + row);
 			close();
 
 		} catch (SparkCassandraException e) {
@@ -185,7 +208,7 @@ public class CassandraReadWrite {
 		try {
 			this.session.close();
 			this.cluster.close();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception: " + e.getMessage());

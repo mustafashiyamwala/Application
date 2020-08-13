@@ -44,7 +44,8 @@ public class MultiWrite {
 			logger.info("Number of Cores Available: " + noOfCores);
 
 			Integer noOfThreads = Integer.parseInt(properties.getProperty("noOfThreads").trim());
-			Integer maxParallelExexcution = noOfThreads > noOfCores ? noOfCores : noOfThreads;
+			//Integer maxParallelExexcution = noOfThreads > noOfCores ? noOfCores : noOfThreads;
+			Integer maxParallelExexcution = noOfThreads;
 			logger.info("Max Parallel Execution: " + maxParallelExexcution);
 
 			String events = properties.getProperty("events").trim();

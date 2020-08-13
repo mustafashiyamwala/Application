@@ -16,7 +16,7 @@
 		<param name="File" value="./logs/spark-cassandra-log4j.log" />
 		<param name="Append" value="false" />
 		<param name="MaxFileSize" value="10KB" />
-		<param name="MaxBackupIndex" value="5" />
+		<param name="MaxBackupIndex" value="15" />
 
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
