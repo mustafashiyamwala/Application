@@ -7,13 +7,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.log4j.Logger;
 
-import com.org.exception.SparkCassandraException;
+import com.org.exception.CassandraException;
 
 public class CSVUtility {
 
 	private static Logger logger = Logger.getLogger(CSVUtility.class);
 
-	public Iterable<CSVRecord> readCSVFile(String path) throws SparkCassandraException {
+	public Iterable<CSVRecord> readCSVFile(String path) throws CassandraException {
 		Iterable<CSVRecord> iterable = null;
 
 		try {
@@ -24,7 +24,7 @@ public class CSVUtility {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception: " + e.getMessage());
-			throw new SparkCassandraException("Exception: " + e.getMessage());
+			throw new CassandraException("Exception: " + e.getMessage());
 		}
 		return iterable;
 	}

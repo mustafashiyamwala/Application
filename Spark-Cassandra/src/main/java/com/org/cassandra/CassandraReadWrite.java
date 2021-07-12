@@ -35,7 +35,7 @@ import com.datastax.driver.mapping.MappingManager;
 import com.datastax.driver.mapping.Result;
 import com.org.beans.BBData;
 import com.org.beans.BBVars;
-import com.org.exception.SparkCassandraException;
+import com.org.exception.CassandraException;
 import com.org.service.BBService;
 import com.org.utils.CSVUtility;
 
@@ -79,7 +79,7 @@ public class CassandraReadWrite {
 		this.codecRegistry = CodecRegistry.DEFAULT_INSTANCE;
 	}
 
-	public void connect() throws SparkCassandraException {
+	public void connect() throws CassandraException {
 		try {
 
 			Cluster.Builder builder = Cluster.builder();
@@ -94,7 +94,7 @@ public class CassandraReadWrite {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception: " + e.getMessage());
-			throw new SparkCassandraException("Exception:" + e.getMessage());
+			throw new CassandraException("Exception:" + e.getMessage());
 		}
 	}
 
@@ -102,7 +102,7 @@ public class CassandraReadWrite {
 
 		try {
 			int count = 0;
-			// BatchStatement batchStatement = new BatchStatement();
+			BatchStatement batchStatement = new BatchStatement();
 			// String insertQuery = "INSERT INTO " + this.keySpace + "." + this.tableName
 			// + " (bbluuid, beanclassname, datehourbucket, fullyprocessed, startblock, ts,
 			// vars) VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -114,51 +114,58 @@ public class CassandraReadWrite {
 			Iterable<CSVRecord> iterable = new CSVUtility().readCSVFile(filePath.toString());
 			long nanosec = ManagementFactory.getThreadMXBean().getThreadCpuTime(Thread.currentThread().getId());
 
-			for (CSVRecord csvRecord : iterable) {
+			synchronized (this) {
 
-				/*
-				 * UserType userType =
-				 * this.session.getCluster().getMetadata().getKeyspace(this.keySpace)
-				 * .getUserType("BBVars"); UDTValue udtValue =
-				 * userType.newValue().setDouble("mt_aiflo",
-				 * Double.parseDouble(csvRecord.get(0))) .setDouble("mt_aitmp",
-				 * Double.parseDouble(csvRecord.get(1))) .setDouble("mt_aiden",
-				 * Double.parseDouble(csvRecord.get(2)));
-				 * 
-				 * batchStatement.add(preparedStatement.bind().setUUID("bbluuid",
-				 * UUIDs.timeBased()) .setString("beanclassname", BBData.class.getSimpleName())
-				 * .setString("datehourbucket",
-				 * LocalDateTime.now().toString()).setBool("fullyprocessed", false)
-				 * .setBool("startblock", false).setString("ts",
-				 * String.valueOf(Instant.now().toEpochMilli())) .setUDTValue("vars",
-				 * udtValue));
-				 */
+				for (CSVRecord csvRecord : iterable) {
 
-				BBVars bbVars = new BBVars(Double.parseDouble(csvRecord.get(0)), Double.parseDouble(csvRecord.get(1)),
-						Double.parseDouble(csvRecord.get(2)));
-				BBData bbData = new BBData(UUIDs.random(), BBData.class.getSimpleName(), LocalDateTime.now().toString(),
-						false, false, String.valueOf(Instant.now().toEpochMilli()), bbVars);
+					/*
+					 * UserType userType =
+					 * this.session.getCluster().getMetadata().getKeyspace(this.keySpace)
+					 * .getUserType("BBVars"); UDTValue udtValue =
+					 * userType.newValue().setDouble("mt_aiflo",
+					 * Double.parseDouble(csvRecord.get(0))) .setDouble("mt_aitmp",
+					 * Double.parseDouble(csvRecord.get(1))) .setDouble("mt_aiden",
+					 * Double.parseDouble(csvRecord.get(2)));
+					 * 
+					 * batchStatement.add(preparedStatement.bind().setUUID("bbluuid",
+					 * UUIDs.timeBased()) .setString("beanclassname", BBData.class.getSimpleName())
+					 * .setString("datehourbucket",
+					 * LocalDateTime.now().toString()).setBool("fullyprocessed", false)
+					 * .setBool("startblock", false).setString("ts",
+					 * String.valueOf(Instant.now().toEpochMilli())) .setUDTValue("vars",
+					 * udtValue));
+					 */
 
-				Statement statement = mapper.saveQuery(bbData);
-				this.session.execute(statement);
-				count++;
-				
-				/*
-				 * batchStatement.add(statement); 
-				 * 
-				 * if (count % 100 == 0) { this.session.execute(batchStatement); batchStatement
-				 * = new BatchStatement(); logger.info("Records Inserted: =============> " +
-				 * count); }
-				 */
+					BBVars bbVars = new BBVars(Double.parseDouble(csvRecord.get(0)),
+							Double.parseDouble(csvRecord.get(1)), Double.parseDouble(csvRecord.get(2)));
+					BBData bbData = new BBData(UUIDs.random(), BBData.class.getSimpleName(),
+							LocalDateTime.now().toString(), false, false, String.valueOf(Instant.now().toEpochMilli()),
+							bbVars);
+
+					Statement statement = mapper.saveQuery(bbData);
+					this.session.execute(statement);
+					count++;
+
+					//batchStatement.add(statement);
+
+					/*if (count % 100 == 0) {
+						this.session.execute(batchStatement);
+						batchStatement = new BatchStatement();
+						logger.info("Records Inserted: =============> " + count);
+					}*/
+
+				}
+				//this.session.execute(batchStatement);
+				logger.info("No of Records Inserted: ======> " + count);
+				close();
+
+				long nanosec1 = ManagementFactory.getThreadMXBean().getThreadCpuTime(Thread.currentThread().getId());
+				logger.info("Time:  " + (nanosec1 - nanosec) / 1000000 + " Thread: " + Thread.currentThread().getId());
+			
+				this.notifyAll();
 			}
-			// this.session.execute(batchStatement);
-			logger.info("No of Records Inserted: ======> " + count);
-			close();
-
-			long nanosec1 = ManagementFactory.getThreadMXBean().getThreadCpuTime(Thread.currentThread().getId());
-			logger.info("Time:  " + (nanosec1 - nanosec) / 1000000 + " Thread: " + Thread.currentThread().getId());
-
-		} catch (SparkCassandraException e) {
+			
+		} catch (CassandraException e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception: " + e.getMessage());
 		}
@@ -184,7 +191,7 @@ public class CassandraReadWrite {
 			long nanosec1 = ManagementFactory.getThreadMXBean().getThreadCpuTime(Thread.currentThread().getId());
 			logger.info("Time:  " + (nanosec1 - nanosec) / 1000000 + " Thread: " + Thread.currentThread().getId());
 
-		} catch (SparkCassandraException e) {
+		} catch (CassandraException e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception: " + e.getMessage());
 		}
@@ -198,7 +205,7 @@ public class CassandraReadWrite {
 			logger.info("Count ==========> " + row);
 			close();
 
-		} catch (SparkCassandraException e) {
+		} catch (CassandraException e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception: " + e.getMessage());
 		}

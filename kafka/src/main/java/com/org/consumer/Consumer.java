@@ -17,6 +17,8 @@ import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import com.org.custom.serde.Customer;
 import com.org.custom.serde.CustomerDeserializer;
+import com.org.sql.SQLStorage;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,12 +28,14 @@ public class Consumer implements Runnable {
 
 	private Properties properties;
 	private List<String> topicsName;
+	private SQLStorage sqlStorage;
 	private KafkaConsumer<String, Customer> kafkaConsumer;
 	private Map<TopicPartition, OffsetAndMetadata> map;
 
 	public Consumer(List<String> topicsName) {
 		this.topicsName = topicsName;
 		this.map = new HashMap<TopicPartition, OffsetAndMetadata>();
+		this.sqlStorage = new SQLStorage();
 
 		configuringConsumer();
 	}

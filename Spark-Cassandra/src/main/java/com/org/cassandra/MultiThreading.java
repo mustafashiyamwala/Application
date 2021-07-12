@@ -12,7 +12,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.apache.log4j.Logger;
-import com.org.exception.SparkCassandraException;
+import com.org.exception.CassandraException;
 
 public class MultiThreading {
 
@@ -20,9 +20,9 @@ public class MultiThreading {
 
 	public void multipleCall(String[] urls, Integer port, String userName, String password, String keySpace,
 			String tableName, Integer maxParallelExexcution, List<Path> directoryStream, String event)
-			throws SparkCassandraException {
+			throws CassandraException {
 
-		Object result = null;
+ 		Object result = null;
 		List<Future<?>> resultFuture = new ArrayList<Future<?>>();
 		List<RunnableTask> runnableTask = new ArrayList<RunnableTask>();
 		ExecutorService executorService = null;
@@ -60,14 +60,14 @@ public class MultiThreading {
 			} catch (InterruptedException | ExecutionException | TimeoutException e) {
 				// TODO: handle exception
 				logger.error("Exception: " + e.getMessage());
-				throw new SparkCassandraException("Exception: " + e.getMessage());
+				throw new CassandraException("Exception: " + e.getMessage());
 			}
 
 		} finally {
 			executorService.shutdown();
 
 			try {
-				if (executorService.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
+				if (executorService.awaitTermination(2000, TimeUnit.MILLISECONDS)) {
 					executorService.shutdownNow();
 				}
 
@@ -75,7 +75,7 @@ public class MultiThreading {
 				// TODO: handle exception
 				logger.error("Exception: " + e.getMessage());
 				executorService.shutdown();
-				throw new SparkCassandraException("Exception: " + e.getMessage());
+				throw new CassandraException("Exception: " + e.getMessage());
 			}
 		}
 	}

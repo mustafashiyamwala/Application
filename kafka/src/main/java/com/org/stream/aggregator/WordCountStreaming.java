@@ -1,6 +1,8 @@
 package com.org.stream.aggregator;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -184,6 +186,7 @@ public class WordCountStreaming {
 		Materialized<String, TradeStatistics, WindowStore<Bytes, byte[]>> materialized = Materialized
 				.<String, TradeStatistics, WindowStore<Bytes, byte[]>>as("trade-stats-store")
 				.withValueSerde(new TradeStatisticsSerde());
+
 
 		// The result key type of a windowed stream aggregation.
 		// If a KStream gets grouped and aggregated using a window-aggregation the

@@ -17,7 +17,7 @@ public class RunnableTask implements Runnable {
 		this.cassandraReadWrite = new CassandraReadWrite(urls, port, userName, password, keySpace, tableName);
 		logger.info(event + " Task is Initialized ");
 	}
-	
+
 	public RunnableTask(String[] urls, Integer port, String userName, String password, String keySpace,
 			String tableName, Path filePath, String event) {
 		// TODO Auto-generated constructor stub

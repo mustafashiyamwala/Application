@@ -12,13 +12,14 @@ public class MainApp {
 		// TODO Auto-generated method stub
 		int numThread = 2;
 		String topicName = "KafkaMessage";
-		Customer customer = new Customer(1, "Allaha");
+		Customer customer = new Customer(1, "Jou");
 
-		/*Producer producer = new Producer();
-		producer.sendMessage(topicName, "mustafa", customer);
+		Producer producer = new Producer();
+		producer.sendMessage(topicName, "1", customer);
 		Thread.sleep(100);
+		
 
-		RecordMetadata recordMetadata = producer.sendMessage1(topicName, "mustafa", customer);
+		/*RecordMetadata recordMetadata = producer.sendMessage1(topicName, "mustafa", customer);
 		System.out.println("Topic Name: " + recordMetadata.topic() + " Partition: " + recordMetadata.partition()
 				+ " Offset: " + recordMetadata.offset() + " Event Time: " + recordMetadata.timestamp());
 		Thread.sleep(100);
@@ -27,10 +28,10 @@ public class MainApp {
 		System.out.println("Done");*/
 
 		
-		for (int i = 0; i < numThread; i++) {
+		/*for (int i = 0; i < numThread; i++) {
 			Consumer consumer = new Consumer(Arrays.asList(topicName));
 			Thread thread = new Thread(consumer, "Thread-"+i);
 			thread.start();
-		}		
+		}	*/	
 	}
 }

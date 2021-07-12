@@ -3,6 +3,7 @@ package com.org.cassandra;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-import com.org.exception.SparkCassandraException;
+import com.org.exception.CassandraException;
 
 public class MultiWrite {
 
@@ -22,9 +23,9 @@ public class MultiWrite {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 
-		DOMConfigurator.configure("src/main/resources/log4j.xml");
+		DOMConfigurator.configure(MultiWrite.class.getResource("/log4j.xml"));
 
-		try (InputStream inputStream = new FileInputStream("src/main/resources/input.properties")) {
+		try (InputStream inputStream = new FileInputStream(args[0])) {
 
 			Properties properties = new Properties();
 			properties.load(inputStream);
@@ -44,7 +45,8 @@ public class MultiWrite {
 			logger.info("Number of Cores Available: " + noOfCores);
 
 			Integer noOfThreads = Integer.parseInt(properties.getProperty("noOfThreads").trim());
-			//Integer maxParallelExexcution = noOfThreads > noOfCores ? noOfCores : noOfThreads;
+			// Integer maxParallelExexcution = noOfThreads > noOfCores ? noOfCores :
+			// noOfThreads;
 			Integer maxParallelExexcution = noOfThreads;
 			logger.info("Max Parallel Execution: " + maxParallelExexcution);
 
@@ -64,14 +66,14 @@ public class MultiWrite {
 			if (events.equalsIgnoreCase("write") || events.equalsIgnoreCase("read")) {
 				multiThreading.multipleCall(urls, port, userName, password, keySpace, tableName, maxParallelExexcution,
 						filePath, events);
-			
-			}else {
-				//multiThreading.scheduleMultipleCall(urls, keySpace, tableName);
+
+			} else {
+				// multiThreading.scheduleMultipleCall(urls, keySpace, tableName);
 			}
 
 			logger.info("Write Operation Completed");
 
-		} catch (IOException | SparkCassandraException e) {
+		} catch (IOException | CassandraException e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception: " + e.getMessage());
 		}

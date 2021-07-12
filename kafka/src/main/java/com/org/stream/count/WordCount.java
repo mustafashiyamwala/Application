@@ -34,7 +34,7 @@ public class WordCount {
 		this.properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 		this.properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 
-		this.properties.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, "2");
+		this.properties.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, "1");
 		this.properties.put(StreamsConfig.COMMIT_INTERVAL_MS_CONFIG, "1000");
 		this.properties.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, "1024");
 		// this.properties.put(StreamsConfig.TOPOLOGY_OPTIMIZATION, "all");
@@ -216,7 +216,7 @@ public class WordCount {
 		StreamsBuilder streamBuilder = new StreamsBuilder();
 
 		WordCount countStreaming = new WordCount();
-		countStreaming.createStreams(streamBuilder, "streams-plaintext-input", "streams-wordcount-output");
+		countStreaming.createStreams(streamBuilder, "Tester", "Tester-output");
 
 		// A logical representation of a Processor Topology.
 		// A topology is an acyclic graph of sources, processors, and sinks.
@@ -252,7 +252,7 @@ public class WordCount {
 		final KafkaStreams kafkaStreams = new KafkaStreams(topology, countStreaming.properties);
 
 		// retrieve all generated internal topic names.
-		topology.describe();
+		System.out.println(topology.describe());
 
 		final CountDownLatch latch = new CountDownLatch(1);
 

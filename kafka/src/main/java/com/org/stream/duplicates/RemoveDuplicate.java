@@ -1,5 +1,6 @@
 package com.org.stream.duplicates;
 
+import java.io.File;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
@@ -221,6 +222,26 @@ public class RemoveDuplicate {
 	// If only a record's value should be modified ValueTransformer can be used.
 	class removeDuplicateUsingTransform implements Transformer<String, String, KeyValue<String, String>> {
 
+		// A storage engine for managing state maintained by a stream processor.
+		// If the store is implemented as a persistent store, it must use the store name
+		// as directory name and write all data into this store directory.
+		// The store directory must be created within the state directory.
+		// The state directory can be obtained via #stateDir() using the
+		// ProcessorContext provided via init(...).
+		// Directory Structure:
+		// _applicationId(state-name)_/_partitionID_/rocksdb/_store-name_
+		// Using nested store directories within the state directory isolates different
+		// state stores.
+		// If a state store would write into the state directory directly, it might
+		// conflict with others state stores and thus, data might get corrupted and/or
+		// Streams might fail with an error.
+		// Furthermore, Kafka Streams relies on using the store name as sxtore directory
+		// name to perform internal cleanup tasks.
+		// This interface does not specify any query capabilities, which, of course,
+		// would be query engine specific.
+		// Instead it just specifies the minimum functionality required to load a data
+		// in store using storage engine from its changelog as well as basic lifecycle
+		// management.
 		private String storeName;
 		private StateStore stateStore;
 
@@ -252,6 +273,10 @@ public class RemoveDuplicate {
 		public void init(ProcessorContext processorContext) {
 			// TODO Auto-generated method stub
 			this.processorContext = processorContext;
+
+			// Returns the state directory for the partition.
+			File stateDir = this.processorContext.stateDir();
+			System.out.println("State Directory: " + stateDir);
 
 			// Get the state store given the store name.
 			this.stateStore = this.processorContext.getStateStore(this.storeName);
@@ -302,6 +327,17 @@ public class RemoveDuplicate {
 					// Update the value associated with this key.
 					// The value to update, it can be null; if the serialized bytes are also null it
 					// is interpreted as deletes.
+
+					// Returns the current timestamp.
+					// If it is triggered while processing a record streamed from the source
+					// processor, timestamp is defined as the timestamp of the current input record;
+					// the timestamp is extracted from ConsumerRecord by TimestampExtractor, which
+					// is also called as event time (producer assigned current timestamp to the
+					// record).
+					// If it is triggered while processing a record generated not from the source
+					// processor (for example,if this method is invoked from the punctuate call),
+					// timestamp is defined as the current task's stream time, which is defined as
+					// the smallest among all its input stream partition timestamps.
 					System.out.println("Add new Record: " + this.processorContext.timestamp());
 					this.keyValueStore.put(event, this.processorContext.timestamp());
 
